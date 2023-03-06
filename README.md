@@ -46,3 +46,8 @@ export const configuration: Config = {
 ```typescript
 export const HASS_KEY = "abcdefg"
 ```
+
+## Usage
+```bash
+npm run start # or npm run dev to run without building
+```
