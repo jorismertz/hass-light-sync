@@ -2,6 +2,7 @@ import Vibrant from "node-vibrant";
 import type { RgbColor, AdapterReturnType } from "./types";
 import { getAverageColor } from "fast-average-color-node";
 import { configuration } from "../config";
+import { increaseSaturation } from "./utils/increaseSaturation";
 
 export const adapters = {
   vibrant: async (image: Buffer): AdapterReturnType => {
@@ -18,10 +19,11 @@ export const adapters = {
     const averageColor = await getAverageColor(image);
     const parsedRgbValue = averageColor.value.map((e) => Math.floor(e));
 
-    // Average color returns an array with 4 values, the last being alpha
-    parsedRgbValue.pop();
+    const saturationBoost =
+      configuration?.colorMethod?.average?.saturationBoost || 20;
+    const saturated = increaseSaturation(saturationBoost, parsedRgbValue);
 
-    return parsedRgbValue as RgbColor;
+    return saturated as RgbColor;
   },
 };
 
@@ -34,5 +36,8 @@ export interface AdapterConfig {
       | "Muted"
       | "DarkMuted"
       | "LightMuted";
+  };
+  average?: {
+    saturationBoost?: number;
   };
 }

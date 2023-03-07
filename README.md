@@ -52,7 +52,8 @@ export const configuration: Config = {
     entities: ["bureau", "bureau_links", "kast", "bed", "bed_links"],
   },
   imageProcessing: {
-    method: "vibrant",
+    method: "average",
+    // Setting a higher value here makes the lights less sensitive to small bright colors
     blur: 20,
     // For debugging purposes, this will emit images of the zones to the screenshots folder
     // Make sure to create a /screenshots folder in the root of the project
@@ -65,6 +66,11 @@ export const configuration: Config = {
       // in my experience, darkvibrant gives the best result
       pallete: "DarkVibrant",
     },
+    average: {
+      // Average has more accurate results but colors are less saturated
+      // Define the percentage to boost the saturation here
+      saturationBoost: 25
+    }
   },
 };
 ```
@@ -83,3 +89,5 @@ npm run start
 [x] Limit Light brightness at brighter/whiter color values
 [ ] Allow for multiple entertainment / display configurations
 [ ] Refactor into cli tool for ease of use
+[ ] Move over to websocket instead of http calls
+[ ] Fix lights turning blue on black screen

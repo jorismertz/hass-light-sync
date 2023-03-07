@@ -4,7 +4,7 @@ import { configuration } from "../../config";
 export function checkForColorChanges(data: number[][]) {
   return data.map((row) => {
     return row.some((value) => {
-      return value > (configuration?.imageProcessing?.rgbChangeThreshold || 2);
+      return value > (configuration?.imageProcessing?.rgbChangeThreshold || 5);
     });
   });
 }
