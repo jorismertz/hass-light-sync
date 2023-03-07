@@ -1,8 +1,11 @@
 import { getZoneColors } from "./utils/getZoneColors";
 import { syncLightsToDisplay } from "./utils/syncLightsToDisplay";
+import { validateConfig } from "./utils/validateConfig";
 
 import { configuration } from "../config";
 import { log } from "./utils/logger";
+
+validateConfig(configuration);
 
 async function cycle() {
   const { method, emitImages } = configuration?.imageProcessing || {};
