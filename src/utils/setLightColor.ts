@@ -1,4 +1,4 @@
-import { configuration } from "../../config.js";
+import { configuration } from "../../config";
 import axios from "axios";
 
 import type { RgbColor } from "../types";

@@ -1,10 +1,11 @@
-import { setLightColor } from "./utils/setLightColor.js";
-import { getZoneColors } from "./utils/getZoneColors.js";
+import { setLightColor } from "./utils/setLightColor";
+import { getZoneColors } from "./utils/getZoneColors";
 
 import type { RgbColor } from "./types";
-import { configuration } from "../config.js";
+import { configuration } from "../config";
 
 function syncLightsToScreen(colors: RgbColor[]) {
+  if (configuration.dryRun) return;
   configuration.homeAssistant.entities.forEach(async (entity, i) => {
     const hasPrefix = entity.startsWith("light.");
     await setLightColor(colors[i], hasPrefix ? entity : `light.${entity}`);
@@ -17,8 +18,8 @@ function startLoop() {
       configuration?.imageProcessing?.method || "vibrant",
       configuration?.imageProcessing?.emitImages || false
     );
-    syncLightsToScreen(colors);
 
+    syncLightsToScreen(colors);
     startLoop();
   }, 600);
 }

@@ -1,5 +1,5 @@
 import type { Config } from "./src/types";
-import { HASS_KEY } from "./secrets.js";
+import { HASS_KEY } from "./secrets";
 
 export const configuration: Config = {
   // Resolution of your main display which the lights will sync to.
@@ -13,6 +13,9 @@ export const configuration: Config = {
   // x x x
   // Each x represent a zone which controls an entity
   zones: [2, 3],
+  // Allows for testing of color picking without actually sending data to home assistant
+  dryRun: true,
+
   homeAssistant: {
     // Make sure you have a trailing slash.
     host: "http://192.168.0.109:8123/",

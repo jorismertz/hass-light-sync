@@ -1,5 +1,7 @@
-export type ColorPickingMethods = "average" | "vibrant";
+import { adapters } from "./adapters";
+
 export type RgbColor = [number, number, number];
+export type AvaibleAdapters = keyof typeof adapters;
 
 export type YDimension = {
   top: number;
@@ -25,7 +27,7 @@ type HomeAssistantConfig = {
 };
 
 type ImageProcessingConfig = {
-  method?: ColorPickingMethods;
+  method?: AvaibleAdapters;
   blur?: number;
   emitImages?: boolean;
 };
@@ -33,6 +35,7 @@ type ImageProcessingConfig = {
 export interface Config {
   display: Display;
   zones: number[];
+  dryRun?: boolean;
   homeAssistant: HomeAssistantConfig;
   imageProcessing?: ImageProcessingConfig;
 }

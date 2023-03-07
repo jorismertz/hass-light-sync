@@ -1,20 +1,19 @@
-import { getAverageColor } from "fast-average-color-node";
 import screenshot from "screenshot-desktop";
-import vibrant from "node-vibrant";
 
-// Compiler goes crazy if the type is imported from sharp
 // @ts-ignore
 import Tsharp from "sharp";
+// Compiler goes crazy if the type is imported from sharp
 const sharp = Tsharp as any;
 
-import { getZoneCoords } from "./calculateZone.js";
-import { configuration } from "../../config.js";
+import { getZoneCoords } from "./calculateZone";
+import { configuration } from "../../config";
 
-import type { ColorPickingMethods, RgbColor, Zone } from "../types";
+import type { RgbColor, Zone, AvaibleAdapters } from "../types";
+import { adapters } from "../adapters";
 
 const zones = getZoneCoords(configuration);
 
-const getSmall = (z: Zone) => {
+const getDownsizedResolution = (z: Zone) => {
   return {
     width: Math.floor(z.width / 2),
     height: Math.floor(z.height / 2),
@@ -22,13 +21,13 @@ const getSmall = (z: Zone) => {
 };
 
 export async function getZoneColors(
-  method: ColorPickingMethods = "vibrant",
+  colorExtractionMethod: AvaibleAdapters = "vibrant",
   emitImages = false
 ) {
   const image = await screenshot();
 
   const colors = zones.map(async (zone, i) => {
-    const downsized = getSmall(zone);
+    const downsized = getDownsizedResolution(zone);
     const img = sharp(image)
       .extract(zone)
       .blur(configuration?.imageProcessing?.blur || 20)
@@ -36,18 +35,11 @@ export async function getZoneColors(
 
     if (emitImages) img.toFile(`./screenshots/${i}.png`);
 
-    const buf = (await img.toBuffer()) as Buffer;
+    const imageBuffer = (await img.toBuffer()) as Buffer;
+    const color = await adapters[colorExtractionMethod](imageBuffer);
 
-    const vibrantColor = await vibrant.from(buf).getPalette();
-    const averageColor = await getAverageColor(buf);
-
-    const averageRgb = averageColor.value.map((e) => Math.floor(e));
-    averageRgb.pop();
-    const vibrantRgb = vibrantColor?.DarkVibrant?.rgb.map((e) => Math.floor(e));
-
-    // Provide a fallback if vibrant color isn't provided
-    if (method === "vibrant" && !vibrantRgb) return averageRgb;
-    return method === "average" ? averageRgb : vibrantRgb;
+    console.log(color);
+    return color;
   });
 
   const resolved = await Promise.all(colors);
