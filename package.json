@@ -3,9 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "main": "src/main.ts",
-  "type": "module",
   "scripts": {
-    "dev": "ts-node main.ts",
+    "dev": "ts-node src/main",
     "lint": "tsc --watch --noEmit",
     "format": "npx prettier --write 'src/**/*.ts'",
     "build": "tsc",
