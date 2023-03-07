@@ -8,7 +8,7 @@ Hue Sync alike program for homeassistant light entities.
 git clone https://github.com/jorismertz/hass-light-sync
 cd hass-light-sync
 npm install
-npm run build
+npm run build # Make sure to edit the configuration before building.
 ```
 ## Configuration
 *config.ts*
