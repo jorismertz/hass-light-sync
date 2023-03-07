@@ -18,8 +18,6 @@ async function cycle() {
   log("Syncing lights to display", { verboseOnly: true });
 
   syncLightsToDisplay(zoneColorArray);
-
-  log("Appointed zone colors:", { verboseOnly: true, data: zoneColorArray });
 }
 
 function nextCycle() {

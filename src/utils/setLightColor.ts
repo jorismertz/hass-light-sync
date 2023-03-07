@@ -3,6 +3,8 @@ import axios from "axios";
 
 import type { RgbColor } from "../types";
 
+
+
 export async function setLightColor(rgb_color: RgbColor, entity_id: string) {
   const key = configuration.homeAssistant.key;
   if (!key) throw new Error("No key provided");

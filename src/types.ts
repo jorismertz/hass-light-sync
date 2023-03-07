@@ -28,6 +28,7 @@ type HomeAssistantConfig = {
 };
 
 type ImageProcessingConfig = {
+  rgbChangeThreshold?: number;
   method?: AvaibleAdapters;
   blur?: number;
   emitImages?: boolean;

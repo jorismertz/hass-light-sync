@@ -3,7 +3,7 @@ import { HASS_KEY } from "./secrets";
 
 export const configuration: Config = {
   // Enables verbose logging
-  verbose: false,
+  verbose: true,
   // How often the lights should sync to the display in milliseconds
   // Lowering this value could result in higher usage.
   cycleInterval: 600,
@@ -31,10 +31,13 @@ export const configuration: Config = {
   },
   imageProcessing: {
     method: "vibrant",
-    blur: 20,
+    // Increasing blur will reduce sensity to small brightly colored details
+    blur: 50,
     // For debugging purposes, this will emit images of the zones to the screenshots folder
     // Make sure to create a /screenshots folder in the root of the project
     emitImages: false, // Make sure to disable this when building!
+    // Max amount of r / g / b value change before the light will update
+    rgbChangeThreshold: 5,
   },
   // Options for the image processing method
   colorMethod: {

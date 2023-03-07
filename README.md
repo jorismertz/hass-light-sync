@@ -77,3 +77,7 @@ npm run dev
 # Run compiled javascript 
 npm run start
 ```
+
+## To-Do Planned features
+[ ] Cancel requests if previous rgb value isn't changed
+[ ] Limit Light brightness at brighter/whiter color values
