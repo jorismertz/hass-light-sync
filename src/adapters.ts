@@ -1,4 +1,4 @@
-import Vibrant from "node-vibrant";
+import vibrant from "node-vibrant";
 import type { RgbColor, AdapterReturnType } from "./types";
 import { getAverageColor } from "fast-average-color-node";
 import { configuration } from "../config";
@@ -9,7 +9,7 @@ import { increaseSaturation } from "./utils/increaseSaturation";
 
 export const adapters = {
   vibrant: async (image: Buffer): AdapterReturnType => {
-    const vibrantColor = await Vibrant.from(image).getPalette();
+    const vibrantColor = await vibrant.from(image).getPalette();
 
     const prefferedColorPalette =
       configuration?.colorMethod?.vibrant?.pallete || "DarkVibrant";
