@@ -2,7 +2,8 @@ import type { Config } from "./src/types";
 import { HASS_KEY } from "./secrets";
 
 export const configuration: Config = {
-  verbose: true,
+  // Enables verbose logging
+  verbose: false,
   // How often the lights should sync to the display in milliseconds
   // Lowering this value could result in higher usage.
   cycleInterval: 600,
@@ -35,8 +36,11 @@ export const configuration: Config = {
     // Make sure to create a /screenshots folder in the root of the project
     emitImages: false, // Make sure to disable this when building!
   },
+  // Options for the image processing method
   colorMethod: {
     vibrant: {
+      // Vibrant generates a few different color pallete's
+      // in my experience, darkvibrant gives the best result
       pallete: "DarkVibrant",
     },
   },
