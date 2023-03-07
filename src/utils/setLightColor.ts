@@ -10,6 +10,13 @@ export async function setLightColor(rgb_color: RgbColor, entity_id: string) {
   if (!key) throw new Error("No key provided");
 
   const brightness = getBrightnessAdjustments(rgb_color);
+  // Sometimes the color is out of bounds, so we need to clamp it.
+  // I blame this on the shady scripts i copied off the internet.
+  const validatedColor = rgb_color.map((color) => {
+    if (color < 0) return 0;
+    if (color > 255) return 255;
+    return color;
+  });
 
   log(
     `Setting light ${entity_id} to color ${rgb_color}, brightness ${brightness}`,
@@ -25,7 +32,7 @@ export async function setLightColor(rgb_color: RgbColor, entity_id: string) {
       brightness_pct: brightness,
       transition: 1,
       entity_id,
-      rgb_color,
+      rgb_color: validatedColor,
     },
     {
       headers: {

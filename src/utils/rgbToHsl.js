@@ -28,12 +28,6 @@ export const HSLToRGB = (h, s, l) => {
   let r = Math.floor(255 * f(0));
   let g = Math.floor(255 * f(8));
   let b = Math.floor(255 * f(4));
-  if (r > 255) r = 255;
-  if (g > 255) g = 255;
-  if (b > 255) b = 255;
-  if (r < 0) r = 0;
-  if (g < 0) g = 0;
-  if (b < 0) b = 0;
 
   return [r, g, b];
 };
