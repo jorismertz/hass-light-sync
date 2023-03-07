@@ -4,6 +4,9 @@ import { getAverageColor } from "fast-average-color-node";
 import { configuration } from "../config";
 import { increaseSaturation } from "./utils/increaseSaturation";
 
+// Adapters are functions that take an image buffer and return a rgb color
+// To allow for custom configuration options add a matching type below for your adapter
+
 export const adapters = {
   vibrant: async (image: Buffer): AdapterReturnType => {
     const vibrantColor = await Vibrant.from(image).getPalette();
