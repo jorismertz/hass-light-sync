@@ -19,7 +19,7 @@ export async function setLightColor(rgb_color: RgbColor, entity_id: string) {
   });
 
   log(
-    `Setting light ${entity_id} to color ${rgb_color}, brightness ${brightness}`,
+    `Entity: ${entity_id} to color ${rgb_color} at brightness ${brightness}`,
     {
       verboseOnly: true,
     }

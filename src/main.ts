@@ -15,8 +15,6 @@ async function cycle() {
     emitImages || false
   );
 
-  log("Syncing lights to display", { verboseOnly: true });
-
   syncLightsToDisplay(zoneColorArray);
 }
 

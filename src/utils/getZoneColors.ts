@@ -1,9 +1,7 @@
 import screenshot from "screenshot-desktop";
 
-// @ts-ignore
-import Tsharp from "sharp";
-// Compiler goes crazy if the type is imported from sharp
-const sharp = Tsharp as any;
+//@ts-expect-error
+import sharp from "sharp";
 
 import { getZoneCoords } from "./calculateZone";
 import { configuration } from "../../config";
@@ -28,14 +26,17 @@ export async function getZoneColors(
 
   const colors = zones.map(async (zone, i) => {
     const downsized = getDownsizedResolution(zone);
-    const img = sharp(image)
+
+    const img = sharp(image);
+
+    const extractedZone = img
       .extract(zone)
       .blur(configuration?.imageProcessing?.blur || 20)
       .resize(downsized.width, downsized.height);
 
-    if (emitImages) img.toFile(`./screenshots/${i}.png`);
+    if (emitImages) extractedZone.toFile(`./screenshots/${i}.png`);
 
-    const imageBuffer = (await img.toBuffer()) as Buffer;
+    const imageBuffer = (await extractedZone.toBuffer()) as Buffer;
     const color = await adapters[colorExtractionMethod](imageBuffer);
 
     return color;

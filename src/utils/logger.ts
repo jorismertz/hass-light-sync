@@ -15,7 +15,7 @@ export function log(message: string, options: LogOptions = defaultLogOptions) {
   const verbose = configuration?.verbose;
   if (options.verboseOnly && !verbose) return;
 
-  const time = new Date().toLocaleString();
+  const time = new Date().toLocaleString().split(",")[1].trim();
   const formattedMessage = `${time}: ${message}`;
 
   switch (options.level) {
