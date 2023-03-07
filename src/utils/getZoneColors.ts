@@ -38,7 +38,6 @@ export async function getZoneColors(
     const imageBuffer = (await img.toBuffer()) as Buffer;
     const color = await adapters[colorExtractionMethod](imageBuffer);
 
-    console.log(color);
     return color;
   });
 

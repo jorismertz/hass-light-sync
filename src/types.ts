@@ -36,6 +36,7 @@ type ImageProcessingConfig = {
 interface ImageProcessingMethodOptions extends AdapterConfig {}
 
 export interface Config {
+  verbose?: boolean;
   cycleInterval?: number;
   display: Display;
   zones: number[];

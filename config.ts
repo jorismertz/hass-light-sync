@@ -2,6 +2,7 @@ import type { Config } from "./src/types";
 import { HASS_KEY } from "./secrets";
 
 export const configuration: Config = {
+  verbose: true,
   // How often the lights should sync to the display in milliseconds
   // Lowering this value could result in higher usage.
   cycleInterval: 600,
@@ -17,7 +18,7 @@ export const configuration: Config = {
   // Each x represent a zone which controls an entity
   zones: [2, 3],
   // Allows for testing of color picking without actually sending data to home assistant
-  dryRun: true,
+  dryRun: false,
 
   homeAssistant: {
     // Make sure you have a trailing slash.
