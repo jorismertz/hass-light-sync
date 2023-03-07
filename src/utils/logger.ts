@@ -12,15 +12,13 @@ const defaultLogOptions: LogOptions = {
 };
 
 export function log(message: string, options: LogOptions = defaultLogOptions) {
-  const { level } = options;
   const verbose = configuration?.verbose;
+  if (options.verboseOnly && !verbose) return;
 
   const time = new Date().toLocaleString();
   const formattedMessage = `${time}: ${message}`;
 
-  if (options.verboseOnly && !verbose) return;
-
-  switch (level) {
+  switch (options.level) {
     case "warn":
       console.warn(formattedMessage);
       break;
