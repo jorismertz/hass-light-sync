@@ -2,6 +2,9 @@ import type { Config } from "./src/types";
 import { HASS_KEY } from "./secrets";
 
 export const configuration: Config = {
+  // How often the lights should sync to the display in milliseconds
+  // Lowering this value could result in higher usage.
+  cycleInterval: 600,
   // Resolution of your main display which the lights will sync to.
   display: {
     width: 2560,

@@ -3,18 +3,22 @@ import { syncLightsToDisplay } from "./utils/syncLightsToDisplay";
 
 import { configuration } from "../config";
 
-function startLoop() {
-  setTimeout(async function () {
-    const { method, emitImages } = configuration?.imageProcessing || {};
+async function cycle() {
+  const { method, emitImages } = configuration?.imageProcessing || {};
 
-    const colors = await getZoneColors(
-      method || "vibrant",
-      emitImages || false
-    );
+  const zoneColorArray = await getZoneColors(
+    method || "vibrant",
+    emitImages || false
+  );
 
-    syncLightsToDisplay(colors);
-    startLoop();
-  }, 600);
+  syncLightsToDisplay(zoneColorArray);
 }
 
-startLoop();
+function nextCycle() {
+  setTimeout(async function () {
+    await cycle();
+    nextCycle();
+  }, configuration?.cycleInterval || 600);
+}
+
+nextCycle();
