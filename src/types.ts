@@ -1,7 +1,8 @@
-import { adapters } from "./adapters";
+import { adapters, AdapterConfig } from "./adapters";
 
 export type RgbColor = [number, number, number];
 export type AvaibleAdapters = keyof typeof adapters;
+export type AdapterReturnType = Promise<RgbColor>;
 
 export type YDimension = {
   top: number;
@@ -32,10 +33,13 @@ type ImageProcessingConfig = {
   emitImages?: boolean;
 };
 
+interface ImageProcessingMethodOptions extends AdapterConfig {}
+
 export interface Config {
   display: Display;
   zones: number[];
   dryRun?: boolean;
   homeAssistant: HomeAssistantConfig;
   imageProcessing?: ImageProcessingConfig;
+  colorMethod?: ImageProcessingMethodOptions;
 }

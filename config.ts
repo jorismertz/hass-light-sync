@@ -31,4 +31,9 @@ export const configuration: Config = {
     // Make sure to create a /screenshots folder in the root of the project
     emitImages: false, // Make sure to disable this when building!
   },
+  colorMethod: {
+    vibrant: {
+      pallete: "DarkVibrant",
+    },
+  },
 };

@@ -1,13 +1,18 @@
 import Vibrant from "node-vibrant";
-import type { RgbColor } from "./types";
+import type { RgbColor, AdapterReturnType } from "./types";
 import { getAverageColor } from "fast-average-color-node";
-
-type AdapterReturnType = Promise<RgbColor>;
+import { configuration } from "../config";
 
 export const adapters = {
   vibrant: async (image: Buffer): AdapterReturnType => {
     const vibrantColor = await Vibrant.from(image).getPalette();
-    return vibrantColor?.DarkVibrant?.rgb.map((e) => Math.floor(e)) as RgbColor;
+
+    const prefferedColorPalette =
+      configuration?.colorMethod?.vibrant?.pallete || "DarkVibrant";
+
+    return vibrantColor[prefferedColorPalette]?.rgb.map((e) =>
+      Math.floor(e)
+    ) as RgbColor;
   },
   average: async (image: Buffer): AdapterReturnType => {
     const averageColor = await getAverageColor(image);
@@ -19,3 +24,15 @@ export const adapters = {
     return parsedRgbValue as RgbColor;
   },
 };
+
+export interface AdapterConfig {
+  vibrant?: {
+    pallete:
+      | "Vibrant"
+      | "DarkVibrant"
+      | "LightVibrant"
+      | "Muted"
+      | "DarkMuted"
+      | "LightMuted";
+  };
+}
