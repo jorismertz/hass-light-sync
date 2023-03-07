@@ -25,8 +25,15 @@ export const HSLToRGB = (h, s, l) => {
   const a = s * Math.min(l, 1 - l);
   const f = (n) =>
     l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)));
-  const r = Math.floor(255 * f(0));
-  const g = Math.floor(255 * f(8));
-  const b = Math.floor(255 * f(4));
-  return [r > 255 ? 255 : r, g > 255 ? 255 : g, b > 255 ? 255 : b];
+  let r = Math.floor(255 * f(0));
+  let g = Math.floor(255 * f(8));
+  let b = Math.floor(255 * f(4));
+  if (r > 255) r = 255;
+  if (g > 255) g = 255;
+  if (b > 255) b = 255;
+  if (r < 0) r = 0;
+  if (g < 0) g = 0;
+  if (b < 0) b = 0;
+
+  return [r, g, b];
 };
