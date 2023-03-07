@@ -79,5 +79,7 @@ npm run start
 ```
 
 ## To-Do Planned features
-[ ] Cancel requests if previous rgb value isn't changed
-[ ] Limit Light brightness at brighter/whiter color values
+[x] Cancel requests if previous rgb value isn't changed enough
+[x] Limit Light brightness at brighter/whiter color values
+[ ] Allow for multiple entertainment / display configurations
+[ ] Refactor into cli tool for ease of use

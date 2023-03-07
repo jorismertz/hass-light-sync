@@ -20,8 +20,6 @@ export function syncLightsToDisplay(colors: RgbColor[]) {
 
     if (!hasChanged[i]) return;
 
-    log(`Setting light ${entity} to color ${colors[i]}`, { verboseOnly: true });
-
     await setLightColor(colors[i], hasPrefix ? entity : `light.${entity}`);
   });
 

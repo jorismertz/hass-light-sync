@@ -4,6 +4,7 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "module": "CommonJS",
+    "allowJs": true,
     "outDir": "./dist",
     "removeComments": true,
     "target": "ES2020",

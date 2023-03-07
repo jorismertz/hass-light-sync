@@ -17,7 +17,8 @@ export const configuration: Config = {
   // xx xx
   // x x x
   // Each x represent a zone which controls an entity
-  zones: [2, 3],
+  // zones: [2, 3],
+  zones: [2],
   // Allows for testing of color picking without actually sending data to home assistant
   dryRun: false,
 
@@ -27,15 +28,17 @@ export const configuration: Config = {
     // Long lived access token for home assistant
     key: HASS_KEY,
     // either use the full id: "light.bureau" for example, or just the name: "bureau"
-    entities: ["bureau", "bureau_links", "kast", "bed", "bed_links"],
+    // Should be in order of zones (left to right / top to bottom)
+    // entities: ["bureau_links", "bureau", "kast", "bed", "bed_links"],
+    entities: ["bureau_links", "bureau"],
   },
   imageProcessing: {
     method: "vibrant",
     // Increasing blur will reduce sensity to small brightly colored details
-    blur: 50,
+    blur: 25,
     // For debugging purposes, this will emit images of the zones to the screenshots folder
     // Make sure to create a /screenshots folder in the root of the project
-    emitImages: false, // Make sure to disable this when building!
+    emitImages: true, // Make sure to disable this when building!
     // Max amount of r / g / b value change before the light will update
     rgbChangeThreshold: 5,
   },
