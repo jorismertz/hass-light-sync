@@ -10,10 +10,25 @@ cd hass-light-sync
 npm install
 npm run build # Make sure to edit the configuration before building.
 ```
+
 ## Configuration
+
+*secrets.ts*
+```typescript
+export const HASS_KEY = "abcdefg"
+```
+
 *config.ts*
 ```typescript
+import type { Config } from "./src/types";
+import { HASS_KEY } from "./secrets";
+
 export const configuration: Config = {
+  // Enables verbose logging
+  verbose: true,
+  // How often the lights should sync to the display in milliseconds
+  // Lowering this value could result in higher usage.
+  cycleInterval: 600,
   // Resolution of your main display which the lights will sync to.
   display: {
     width: 2560,
@@ -25,6 +40,9 @@ export const configuration: Config = {
   // x x x
   // Each x represent a zone which controls an entity
   zones: [2, 3],
+  // Allows for testing of color picking without actually sending data to home assistant
+  dryRun: false,
+
   homeAssistant: {
     // Make sure you have a trailing slash.
     host: "http://192.168.0.109:8123/",
@@ -40,14 +58,22 @@ export const configuration: Config = {
     // Make sure to create a /screenshots folder in the root of the project
     emitImages: false, // Make sure to disable this when building!
   },
+  // Options for the image processing method
+  colorMethod: {
+    vibrant: {
+      // Vibrant generates a few different color pallete's
+      // in my experience, darkvibrant gives the best result
+      pallete: "DarkVibrant",
+    },
+  },
 };
-```
-*secrets.ts*
-```typescript
-export const HASS_KEY = "abcdefg"
 ```
 
 ## Usage
 ```bash
-npm run start # or npm run dev to run without building
+# Run it with ts-node
+npm run dev
+
+# Run compiled javascript 
+npm run start
 ```
