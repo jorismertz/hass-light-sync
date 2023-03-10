@@ -9,7 +9,10 @@
     "removeComments": true,
     "target": "ES2020",
     "moduleResolution": "node",
-    "strict": true
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitAny": true
   },
   "exclude": ["node_modules"]
 }

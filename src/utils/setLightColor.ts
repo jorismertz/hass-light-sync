@@ -1,11 +1,11 @@
 import { configuration } from "../../config";
 import axios from "axios";
 
-import type { RgbColor } from "../types";
+import type { EntityId, RgbColor } from "../types";
 import { getBrightnessAdjustments } from "./getBrightnessAdjustments";
 import { log } from "./logger";
 
-export async function setLightColor(rgb_color: RgbColor, entity_id: string) {
+export async function setLightColor(rgb_color: RgbColor, entity_id: EntityId) {
   const key = configuration.homeAssistant.key;
   if (!key) throw new Error("No key provided");
 

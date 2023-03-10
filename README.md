@@ -25,12 +25,14 @@ import { HASS_KEY } from "./secrets";
 
 export const configuration: Config = {
   // Enables verbose logging
-  verbose: true,
+  verbose: true, // *optional*
   // How often the lights should sync to the display in milliseconds
   // Lowering this value could result in higher usage.
-  cycleInterval: 600,
+  cycleInterval: 600, // *optional*
   // Resolution of your main display which the lights will sync to.
   display: {
+    // Index of display you want to sync
+    index: 0, // *optional*
     width: 2560,
     height: 1440,
   },
@@ -41,7 +43,7 @@ export const configuration: Config = {
   // Each x represent a zone which controls an entity
   zones: [2, 3],
   // Allows for testing of color picking without actually sending data to home assistant
-  dryRun: false,
+  dryRun: false, // *optional*
 
   homeAssistant: {
     // Make sure you have a trailing slash.
@@ -49,27 +51,28 @@ export const configuration: Config = {
     // Long lived access token for home assistant
     key: HASS_KEY,
     // either use the full id: "light.bureau" for example, or just the name: "bureau"
+    // Arrays of entity id's will be treated as a group. This way you can map multiple lights to a single zone.
     entities: ["bureau", "bureau_links", "kast", "bed", "bed_links"],
   },
   imageProcessing: {
-    method: "average",
+    method: "average", // *optional*
     // Setting a higher value here makes the lights less sensitive to small bright colors
-    blur: 20,
+    blur: 20, // *optional*
     // For debugging purposes, this will emit images of the zones to the screenshots folder
     // Make sure to create a /screenshots folder in the root of the project
-    emitImages: false, // Make sure to disable this when building!
+    emitImages: false, // Make sure to disable this when building! *optional*
   },
   // Options for the image processing method
   colorMethod: {
     vibrant: {
       // Vibrant generates a few different color pallete's
       // in my experience, darkvibrant gives the best result
-      pallete: "DarkVibrant",
+      pallete: "DarkVibrant", // *optional*
     },
     average: {
       // Average has more accurate results but colors are less saturated
       // Define the percentage to boost the saturation here
-      saturationBoost: 25
+      saturationBoost: 25 // *optional*
     }
   },
 };

@@ -2,8 +2,8 @@ node_modules/
 screenshots/
 dist/
 
+.DS_Store
 secrets.ts
-
 pnpm-lock.yaml
 yarn.lock
 package-lock.json

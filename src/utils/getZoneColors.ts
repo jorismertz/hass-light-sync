@@ -22,7 +22,7 @@ export async function getZoneColors(
   colorExtractionMethod: AvaibleAdapters = "vibrant",
   emitImages = false
 ) {
-  const image = await screenshot();
+  const image = await screenshot({ screen: configuration.display?.index });
 
   const colors = zones.map(async (zone, i) => {
     const downsized = getDownsizedResolution(zone);

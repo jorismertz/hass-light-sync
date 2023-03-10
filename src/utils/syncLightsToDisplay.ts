@@ -3,9 +3,13 @@ import { RgbColor } from "../types";
 import { setLightColor } from "./setLightColor";
 import { getRelativeColorDistances } from "./getRelativeColorDistance";
 import { checkForColorChanges } from "./checkForColorChange";
-import { log } from "./logger";
 
 let lastState: RgbColor[] | undefined = undefined;
+
+function addLightEntityPrefix(str: string) {
+  if (str.startsWith("light.")) return str;
+  return `light.${str}`;
+}
 
 export function syncLightsToDisplay(colors: RgbColor[]) {
   if (configuration.dryRun) return;
@@ -16,11 +20,14 @@ export function syncLightsToDisplay(colors: RgbColor[]) {
     : colors.map(() => true);
 
   configuration.homeAssistant.entities.forEach(async (entity, i) => {
-    const hasPrefix = entity.startsWith("light.");
+    const entities =
+      typeof entity === "string"
+        ? addLightEntityPrefix(entity)
+        : entity.map(addLightEntityPrefix);
 
     if (!hasChanged[i]) return;
 
-    await setLightColor(colors[i], hasPrefix ? entity : `light.${entity}`);
+    await setLightColor(colors[i], entities);
   });
 
   lastState = colors;
